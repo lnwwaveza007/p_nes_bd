@@ -252,8 +252,8 @@
       .health-bar {
         display: flex;
         justify-content: center;
-        gap: 5px;
-        margin: 20px 0;
+        gap: 10px;
+        margin: 50px;
       }
 
       .heart {
@@ -300,11 +300,41 @@
         <div class="name">NES</div>
 
         <div class="health-bar">
-          <span class="heart">♥</span>
-          <span class="heart">♥</span>
-          <span class="heart">♥</span>
-          <span class="heart">♥</span>
-          <span class="heart">♥</span>
+          <span class="heart">
+            <img
+              src="./Heart_(icon).webp"
+              alt="Heart Icon"
+              style="width: 20px; height: 20px; vertical-align: middle"
+            />
+          </span>
+          <span class="heart">
+            <img
+              src="./Heart_(icon).webp"
+              alt="Heart Icon"
+              style="width: 20px; height: 20px; vertical-align: middle"
+            />
+          </span>
+          <span class="heart">
+            <img
+              src="./Heart_(icon).webp"
+              alt="Heart Icon"
+              style="width: 20px; height: 20px; vertical-align: middle"
+            />
+          </span>
+          <span class="heart">
+            <img
+              src="./Heart_(icon).webp"
+              alt="Heart Icon"
+              style="width: 20px; height: 20px; vertical-align: middle"
+            />
+          </span>
+          <span class="heart">
+            <img
+              src="./Heart_(icon).webp"
+              alt="Heart Icon"
+              style="width: 20px; height: 20px; vertical-align: middle"
+            />
+          </span>
         </div>
 
         <div class="pixel-art cake">
@@ -321,7 +351,7 @@
 
         <div class="message">
           CONGRATULATIONS!<br />
-          YOU'VE UNLOCKED AGE!<br /><br />
+          YOU'VE UNLOCKED NEW AGED!<br /><br />
 
           🌟 NEW ABILITIES GAINED 🌟<br />
           + MORE WISDOM<br />
@@ -336,8 +366,9 @@
           /></span>
         </div>
 
-        <button class="power-up" onclick="celebrate()">🎉 CELEBRATE!</button>
-        <button class="power-up" onclick="playSound()">💖 HAPPY BUTTON! ( Click much as you want ! )</button>
+        <button class="power-up" onclick="playSound()">
+          💖 HAPPY BUTTON! ( Click much as you want !! )
+        </button>
 
         <div class="score">
           BEAUTY SCORE: 99999999<br /><br />
@@ -373,6 +404,7 @@
         "🌊 PEACEFUL LIKE THE OCEAN! 🌊",
         "🏆 CHAMPION OF HEARTS! 🏆",
         "🎭 BRINGING SMILES ALWAYS! 🎭",
+        "🎪 CIRCUS OF HAPPINESS! 🎪",
       ];
 
       // Create twinkling stars
@@ -430,6 +462,30 @@
 
       // Celebration function
       function celebrate() {
+        // Play the birthday song
+        const audio = new Audio("./song.mp3");
+        audio.play().catch((error) => {
+          console.log("Audio playback failed:", error);
+          // Fallback: show a message if audio fails
+          const audioMessage = document.createElement("div");
+          audioMessage.textContent = "🎵 HAPPY BIRTHDAY SONG! 🎵";
+          audioMessage.style.cssText = `
+                    position: fixed;
+                    top: 20%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    font-family: 'Press Start 2P', monospace;
+                    font-size: 16px;
+                    color: #ffd700;
+                    text-shadow: 4px 4px 0px #cc9900;
+                    z-index: 1000;
+                    pointer-events: none;
+                    animation: musicNote 3s ease-out forwards;
+                `;
+          document.body.appendChild(audioMessage);
+          setTimeout(() => audioMessage.remove(), 3000);
+        });
+
         createConfetti();
 
         // Flash border colors
@@ -451,8 +507,9 @@
       // Random heartful message function
       function playSound() {
         // Get random heartful message
-        const randomMessage = heartfulMessages[Math.floor(Math.random() * heartfulMessages.length)];
-        
+        const randomMessage =
+          heartfulMessages[Math.floor(Math.random() * heartfulMessages.length)];
+
         const powerUpText = document.createElement("div");
         powerUpText.textContent = randomMessage;
         powerUpText.style.cssText = `
@@ -485,10 +542,12 @@
                     font-size: ${12 + Math.random() * 8}px;
                     z-index: 999;
                     pointer-events: none;
-                    animation: sparkleFloat ${2 + Math.random()}s ease-out forwards;
+                    animation: sparkleFloat ${
+                      2 + Math.random()
+                    }s ease-out forwards;
                 `;
           document.body.appendChild(sparkle);
-          
+
           setTimeout(() => {
             sparkle.remove();
           }, 3000);
@@ -525,6 +584,20 @@
                     }
                     100% {
                         transform: scale(0) rotate(360deg);
+                        opacity: 0;
+                    }
+                }
+                @keyframes musicNote {
+                    0% {
+                        transform: translateX(-50%) scale(0.5);
+                        opacity: 0;
+                    }
+                    50% {
+                        transform: translateX(-50%) scale(1.2);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: translateX(-50%) scale(1);
                         opacity: 0;
                     }
                 }
